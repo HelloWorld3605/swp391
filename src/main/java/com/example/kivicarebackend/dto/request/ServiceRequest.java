@@ -1,0 +1,14 @@
+package com.example.kivicarebackend.dto.request;
+
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
+// ServiceRequest.java
+@Data
+public class ServiceRequest {
+    @NotNull
+    private Long departmentId;
+    // Nếu muốn thêm nhiều features khi tạo service thì thêm:
+    // private List<ServiceFeatureRequest> features;
+}
+
