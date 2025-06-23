@@ -25,20 +25,10 @@ public class AppointmentController {
     public ResponseEntity<AppointmentResponse> create(@RequestBody AppointmentRequest request) {
         return ResponseEntity.ok(appointmentService.create(request));
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<AppointmentResponse> update(@PathVariable Long id, @RequestBody AppointmentRequest request) {
-        return ResponseEntity.ok(appointmentService.update(id, request));
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(appointmentService.getById(id));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        appointmentService.delete(id);
-        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
@@ -46,12 +36,14 @@ public class AppointmentController {
             @PageableDefault(size = 20) Pageable pageable) {
         return ResponseEntity.ok(appointmentService.getPage(pageable));
     }
+
     @GetMapping("/by-doctor/{doctorId}")
     public ResponseEntity<PageResponse<AppointmentResponse>> getByDoctor(
             @PathVariable Long doctorId,
             @PageableDefault(size = 20) Pageable pageable) {
         return ResponseEntity.ok(appointmentService.getByDoctorId(doctorId, pageable));
     }
+
     @GetMapping("/by-patient/{patientId}")
     public ResponseEntity<PageResponse<AppointmentResponse>> getByPatient(
             @PathVariable Long patientId,
@@ -83,6 +75,17 @@ public class AppointmentController {
     public ResponseEntity<PageResponse<AppointmentResponse>> getPendingAppointments(
             @PageableDefault(size = 20) Pageable pageable) {
         return ResponseEntity.ok(appointmentService.getPendingAppointments(pageable));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AppointmentResponse> update(@PathVariable Long id, @RequestBody AppointmentRequest request) {
+        return ResponseEntity.ok(appointmentService.update(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        appointmentService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

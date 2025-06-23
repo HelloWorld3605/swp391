@@ -14,39 +14,39 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private Long productId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "product_type")
-    private ProductType productType;
+    @Column(name = "product_type", nullable = false)
+    private ProductType productType = ProductType.MEDICAL_PRODUCT;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "unit")
+    @Column(name = "unit", nullable = false)
     private String unit;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "product_status")
-    private ProductStatus productStatus;
+    @Column(name = "product_status", nullable = false)
+    private ProductStatus productStatus = ProductStatus.ACTIVE;
 
-    @Column(name = "stock_quantities")
-    private Integer stockQuantities;
+    @Column(name = "stock_quantities", nullable = false)
+    private int stockQuantities;
 
     @Column(name = "image_url")
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "label")
-    private ProductLabel label;
+    @Column(name = "label", nullable = false)
+    private ProductLabel label = ProductLabel.STANDARD;
 }
-

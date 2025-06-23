@@ -2,13 +2,14 @@ package com.example.kivicarebackend.dto.request;
 
 import com.example.kivicarebackend.enums.staffs.StaffRole;
 import com.example.kivicarebackend.enums.staffs.StaffType;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import lombok.Data;
+
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 public class StaffRequest {
     private Long userId;
     private StaffRole staffRole;
@@ -17,6 +18,9 @@ public class StaffRequest {
     private String fullName;
     private String avatarUrl;
     private LocalDate hireDate;
+
+    @Min(value = 1, message = "Rank level must be between 1 and 7.")
+    @Max(value = 7, message = "Rank level must be between 1 and 7.")
     private int rankLevel;
     private StaffType staffType;
     private Long hospitalId;

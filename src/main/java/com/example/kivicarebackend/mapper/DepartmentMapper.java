@@ -11,7 +11,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface DepartmentMapper {
-
     @Mapping(source = "manager.staffId", target = "managerId")
     DepartmentResponse toResponse(Department entity);
 

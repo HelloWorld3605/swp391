@@ -92,7 +92,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         return new PageResponse<>(mappedPage);
     }
 
-    // ----- Filter bổ sung -----
+
 
     @Override
     public PageResponse<AppointmentResponse> getByDoctorId(Long doctorId, Pageable pageable) {

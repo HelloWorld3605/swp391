@@ -1,43 +1,56 @@
 package com.example.kivicarebackend.specification;
 
+import com.example.kivicarebackend.dto.request.StaffSearchRequest;
 import com.example.kivicarebackend.entity.Staff;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
 public class StaffSpecification {
 
-    public static Specification<Staff> hasUserId(Long userId) {
-        return (root, query, cb) ->
-                userId == null ? null : cb.equal(root.get("user").get("userId"), userId);
-    }
-    public static Specification<Staff> hasKeyword(String keyword) {
+    public static Specification<Staff> filter(StaffSearchRequest req) {
         return (root, query, cb) -> {
-            if (keyword == null || keyword.trim().isEmpty()) return null;
-            String kw = "%" + keyword.toLowerCase() + "%";
-            return cb.or(
-                    cb.like(cb.lower(root.get("fullName")), kw),
-                    cb.like(cb.lower(root.get("user").get("email")), kw),
-                    cb.like(cb.lower(root.get("user").get("phoneNumber")), kw)
-            );
+            Predicate predicate = cb.conjunction();
+
+            if (req.getKeyword() != null && !req.getKeyword().trim().isEmpty()) {
+                String kw = "%" + req.getKeyword().trim().toLowerCase() + "%";
+                Predicate byName = cb.like(cb.lower(root.get("fullName")), kw);
+                Predicate byEmail = cb.like(cb.lower(root.get("user").get("email")), kw);
+                Predicate byPhone = cb.like(cb.lower(root.get("user").get("phoneNumber")), kw);
+                predicate = cb.and(predicate, cb.or(byName, byEmail, byPhone));
+            }
+
+            if (req.getUserId() != null) {
+                predicate = cb.and(predicate, cb.equal(root.get("user").get("userId"), req.getUserId()));
+            }
+            if (req.getStaffId() != null) {
+                predicate = cb.and(predicate, cb.equal(root.get("staffId"), req.getStaffId()));
+            }
+
+            if (req.getStaffRole() != null) {
+                predicate = cb.and(predicate, cb.equal(root.get("staffRole"), req.getStaffRole()));
+            }
+            if (req.getStaffType() != null) {
+                predicate = cb.and(predicate, cb.equal(root.get("staffType"), req.getStaffType()));
+            }
+
+            if (req.getDepartmentId() != null) {
+                predicate = cb.and(predicate, cb.equal(root.get("department").get("departmentId"), req.getDepartmentId()));
+            }
+            if (req.getHospitalId() != null) {
+                predicate = cb.and(predicate, cb.equal(root.get("hospital").get("hospitalId"), req.getHospitalId()));
+            }
+
+            if (req.getRankLevel() != null) {
+                predicate = cb.and(predicate, cb.equal(root.get("rankLevel"), req.getRankLevel()));
+            }
+            if (req.getHireDateFrom() != null) {
+                predicate = cb.and(predicate, cb.greaterThanOrEqualTo(root.get("hireDate"), req.getHireDateFrom()));
+            }
+            if (req.getHireDateTo() != null) {
+                predicate = cb.and(predicate, cb.lessThanOrEqualTo(root.get("hireDate"), req.getHireDateTo()));
+            }
+
+            return predicate;
         };
-    }
-
-    public static Specification<Staff> hasFullName(String fullName) {
-        return (root, query, cb) ->
-                fullName == null ? null : cb.like(cb.lower(root.get("fullName")), "%" + fullName.toLowerCase() + "%");
-    }
-
-    public static Specification<Staff> hasHospitalId(Long hospitalId) {
-        return (root, query, cb) ->
-                hospitalId == null ? null : cb.equal(root.get("hospital").get("hospitalId"), hospitalId);
-    }
-
-    public static Specification<Staff> hasDepartmentId(Long departmentId) {
-        return (root, query, cb) ->
-                departmentId == null ? null : cb.equal(root.get("department").get("departmentId"), departmentId);
-    }
-
-    public static Specification<Staff> hasRankLevel(Integer rankLevel) {
-        return (root, query, cb) ->
-                rankLevel == null ? null : cb.equal(root.get("rankLevel"), rankLevel);
     }
 }

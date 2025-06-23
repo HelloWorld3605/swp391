@@ -1,6 +1,8 @@
 package com.example.kivicarebackend.repository;
 
 import com.example.kivicarebackend.entity.Department;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,4 +29,8 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
         GROUP BY d.departmentId
     """)
     List<DepartmentStats> getDepartmentStats();
+
+    List<Department> findByHospital_HospitalId(Long hospitalId);
+    Page<Department> findByHospital_HospitalId(Long hospitalId, Pageable pageable);
+
 }

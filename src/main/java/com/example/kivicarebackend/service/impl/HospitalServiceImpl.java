@@ -11,12 +11,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class HospitalServiceImpl implements HospitalService {
 
     private final HospitalRepository hospitalRepository;
     private final HospitalMapper hospitalMapper;
+
+    @Override
+    public List<HospitalResponse> getAllHospitals() {
+        List<Hospital> hospitals = hospitalRepository.findAll();
+        return hospitalMapper.toResponseList(hospitals);
+    }
+
 
     @Override
     public HospitalResponse createHospital(HospitalRequest request) {

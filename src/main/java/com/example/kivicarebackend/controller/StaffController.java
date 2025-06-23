@@ -33,10 +33,6 @@ public class StaffController {
         return staffService.getStaffById(id);
     }
 
-    @PutMapping("/{id}")
-    public StaffResponse update(@PathVariable Long id, @RequestBody StaffRequest request) {
-        return staffService.updateStaff(id, request);
-    }
 
     @PostMapping("/search")
     public PageResponse<StaffResponse> search(
@@ -44,6 +40,16 @@ public class StaffController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return staffService.search(request, page, size);
+    }
+
+    @PutMapping("/{id}")
+    public StaffResponse update(@PathVariable Long id, @RequestBody StaffRequest request) {
+        return staffService.updateStaff(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        staffService.deleteStaff(id);
     }
 
 

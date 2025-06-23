@@ -1,15 +1,21 @@
 package com.example.kivicarebackend.dto.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.example.kivicarebackend.enums.staffs.StaffRole;
+import com.example.kivicarebackend.enums.staffs.StaffType;
+import lombok.Data;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
 public class StaffSearchRequest {
     private Long userId;
+    private Long staffId;
     private String keyword;
-    private String fullName;
-    private Long hospitalId;
+    private StaffRole staffRole;
+    private StaffType staffType;
     private Long departmentId;
+    private Long hospitalId;
     private Integer rankLevel;
+    private LocalDate hireDateFrom;
+    private LocalDate hireDateTo;
 }

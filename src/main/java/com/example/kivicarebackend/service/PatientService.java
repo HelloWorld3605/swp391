@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PatientService {
     List<PatientResponse> getAllPatients();
-    PageResponse<PatientResponse> getPatientPage(Pageable pageable); // optional
+    PageResponse<PatientResponse> getPatientPage(Pageable pageable);
     PatientResponse getPatientById(Long id);
     PatientResponse createPatient(PatientRequest req);
     PatientResponse updatePatient(Long id, PatientRequest req);

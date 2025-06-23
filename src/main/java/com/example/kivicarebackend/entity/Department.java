@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Department {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "department_id")

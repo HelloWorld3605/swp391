@@ -26,19 +26,28 @@ public class DepartmentController {
     public DepartmentResponse update(@PathVariable Long id, @Valid @RequestBody DepartmentRequest request) {
         return departmentService.updateDepartment(id, request);
     }
+
     @GetMapping("/{id}")
     public DepartmentResponse getById(@PathVariable Long id) {
         return departmentService.getDepartmentById(id);
     }
+
     @GetMapping
-    public List<DepartmentResponse> getAll() {
-        return departmentService.getAllDepartmentsWithStats();
+    public List<DepartmentResponse> getDepartmentsByHospital(@RequestParam Long hospitalId) {
+        return departmentService.findByHospitalId(hospitalId);
     }
+
     @GetMapping("/paged")
     public PageResponse<DepartmentResponse> getPaged(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) Long hospitalId
     ) {
-        return departmentService.getDepartmentsWithStatsPaged(page, size);
+        return departmentService.getDepartmentsWithStatsPaged(page, size, hospitalId);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        departmentService.deleteDepartment(id);
     }
 }

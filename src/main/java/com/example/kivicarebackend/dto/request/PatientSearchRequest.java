@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class PatientSearchRequest {
     private Long userId;
     private Long patientId;
-    private String keyword;
+    private String keyword; //Name,PhoneNumber,Email
     private Gender gender;
     private Relationship relationship;
     private BloodType bloodType;

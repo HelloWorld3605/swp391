@@ -8,6 +8,7 @@ import com.example.kivicarebackend.entity.User;
 import com.example.kivicarebackend.mapper.PatientMapper;
 import com.example.kivicarebackend.repository.PatientRepository;
 import com.example.kivicarebackend.repository.UserRepository;
+import com.example.kivicarebackend.service.email.EmailService;
 import com.example.kivicarebackend.service.PatientService;
 import com.example.kivicarebackend.specification.PatientSpecification;
 import com.example.kivicarebackend.util.PageResponse;
@@ -26,6 +27,14 @@ public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
     private final UserRepository userRepository;
     private final PatientMapper patientMapper;
+
+//    private final EmailService emailService;
+//
+//    private String generateOtp() {
+//        int otp = (int)(Math.random() * 900000) + 100000;
+//        return String.valueOf(otp);
+//    }
+
 
     @Override
     public List<PatientResponse> getAllPatients() {
@@ -56,6 +65,7 @@ public class PatientServiceImpl implements PatientService {
         return patientMapper.toResponse(patient);
     }
 
+
     @Override
     @Transactional
     public PatientResponse updatePatient(Long id, PatientRequest req) {
@@ -63,7 +73,6 @@ public class PatientServiceImpl implements PatientService {
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
         User user = userRepository.findById(req.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        // update fields
         patient.setUser(user);
         patient.setPhoneNumber(req.getPhoneNumber());
         patient.setEmail(req.getEmail());

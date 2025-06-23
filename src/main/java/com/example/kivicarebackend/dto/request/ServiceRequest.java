@@ -2,8 +2,6 @@ package com.example.kivicarebackend.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-// ServiceRequest.java
 @Data
 public class ServiceRequest {
     @NotNull

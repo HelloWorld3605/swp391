@@ -8,12 +8,19 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/hospitals")
 @RequiredArgsConstructor
 public class HospitalController {
 
     private final HospitalService hospitalService;
+
+    @GetMapping
+    public List<HospitalResponse> getAll() {
+        return hospitalService.getAllHospitals();
+    }
 
     @PostMapping
     public HospitalResponse create(@Valid @RequestBody HospitalRequest request) {

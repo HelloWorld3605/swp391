@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "coupons")
@@ -31,7 +32,6 @@ public class Coupon {
     private BigDecimal value;
 
     @Column(name = "expiration_date")
-    private java.time.LocalDate expirationDate;
-
+    private LocalDate expirationDate;
 }
 

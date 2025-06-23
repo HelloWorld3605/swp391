@@ -8,6 +8,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface StaffMapper {
 
+    // Map từ request -> entity (Staff)
     @Mapping(target = "staffId", ignore = true)
     @Mapping(target = "user", source = "userId", qualifiedByName = "mapUser")
     @Mapping(target = "manager", source = "managerId", qualifiedByName = "mapManager")
@@ -15,14 +16,19 @@ public interface StaffMapper {
     @Mapping(target = "hospital", source = "hospitalId", qualifiedByName = "mapHospital")
     Staff toEntity(StaffRequest request);
 
+    // Map từ entity -> response (StaffResponse)
+    @Mapping(target = "userId", source = "user.userId")
     @Mapping(target = "staffId", source = "staffId")
     @Mapping(target = "fullName", source = "fullName")
     @Mapping(target = "staffRole", source = "staffRole")
     @Mapping(target = "staffType", source = "staffType")
     @Mapping(target = "rankLevel", source = "rankLevel")
     @Mapping(target = "hireDate", source = "hireDate")
+    @Mapping(target = "department", source = "department")
+    @Mapping(target = "hospital", source = "hospital")
     StaffResponse toResponse(Staff staff);
 
+    // Các hàm map phụ (for Request -> Entity)
     @Named("mapUser")
     static User mapUser(Long id) {
         if (id == null) return null;
@@ -55,3 +61,4 @@ public interface StaffMapper {
         return h;
     }
 }
+

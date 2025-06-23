@@ -24,5 +24,4 @@ public class PageResponse<T> {
         this.totalElements = pageData.getTotalElements();
         this.totalPages = pageData.getTotalPages();
     }
-
 }
